@@ -13,7 +13,7 @@ strpal(char str1[]){
 	puts(str);
 	printf("\n");
 	puts(str1);
-	if(str == str1){
+	if(strcmp(str,str1)==0){
 		printf("its pallindrome");
 	}
 	else{
