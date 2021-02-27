@@ -78,38 +78,280 @@ Enter the no. 8
 --------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
 
 
-#To check whether a number is prime or not
+#Fibonacci series
 
-echo -n "Enter the no. "
+echo -n "Enter the number of terms "
 read n
 
-f=0
+a=0
+b=1
+c=0
+
+echo "Fibonacci series : "
+
 i=1
 while [ $i -le $n ]
 do
-	if [ `expr $n % $i` -eq 0 ]
-	then
-		f=`expr $f + 1`
-	fi
+	echo "$c "
+	a=$b
+	b=$c
+	c=`expr $a + $b`
 	i=`expr $i + 1`
 done
-if [ $f -eq 2 ]
-then
-	echo "$n is a prime number"
-else
-	echo "$n is not a prime number"
-fi
 ----------------------------------------------------------------------
 output:
-arka@arka:~/shell_scripts$ bash prime.sh
-Enter the no. 7
-7 is a prime number
-arka@arka:~/shell_scripts$ bash prime.sh
-Enter the no. 8
-8 is not a prime number
+arka@arka:~/shell_scripts$ bash fibonacci.sh
+Enter the number of terms 5
+Fibonacci series : 
+0 
+1 
+1 
+2 
+3 
+
 
 
 --------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
 
+#To check if a number is a palindrome number or not
+
+echo -n "Enter a number "
+read n
+sum=0
+num=$n
+
+while [ $n -gt 0 ]
+do
+	rem=`expr $n % 10`
+	sum=`expr $sum \* 10`
+	sum=`expr $sum + $rem`
+	n=`expr $n / 10`
+done
+
+if [ $sum -eq $num ]
+then
+	echo "$num is a palindrome number"
+else
+	echo "$num is not a palindrome number"
+fi
+----------------------------------------------------------------------
+output:
+Enter a number 323
+323 is a palindrome number
+arka@arka:~/shell_scripts$ bash palindrome.sh
+Enter a number 3245
+3245 is not a palindrome number
+
+
+
+
+--------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
+
+
+
+#Find the max among 3 numbers
+
+echo -n "Enter a = "
+read a
+echo -n "Enter b = "
+read b
+echo -n "Enter c = "
+read c
+
+if [ $a -gt $b -a $a -gt $c ]
+then
+	echo "MAx = $a"
+elif [ $b -gt $a -a $b -gt $c ]
+then
+	echo "Max = $b"
+else
+	echo "Max = $c"
+fi
+----------------------------------------------------------------------
+output:
+arka@arka:~/shell_scripts$ bash max3.sh
+Enter a = 5
+Enter b = 15
+Enter c = 10
+Max = 15
+
+
+--------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
+
+
+#calculator using functions
+
+addition () {
+	c=`expr $1 + $2`
+	echo "$c"
+}
+
+substraction () {
+	c=`expr $1 - $2`
+	echo "$c"
+}
+
+multiplication () {
+	c=`expr $1 \* $2`
+	echo "$c"
+}
+
+divition () {
+	c=`echo "scale=2;($1 / $2)"|bc`
+	echo "$c"
+}
+
+
+echo "Enter the 1st number"
+read a
+
+echo "Enter the second number"
+read b
+
+echo "choose what operation you wnat to perform"
+echo "1. addition"
+echo "2. substraction"
+echo "3. multiplication"
+echo "4. divition"
+
+
+read n
+
+case $n in
+	1)
+		res=$(addition $a $b)
+		echo "The value of $a + $b = $res";;
+
+	2)
+		res=$(substraction $a $b)
+		echo "The value of $a - $b = $res";;
+
+	3)
+		res=$(multiplication $a $b)
+		echo "The value of $a x $b = $res";;
+
+	4)
+		res=$(divition $a $b)
+		echo "The value of $a / $b = $res";;
+	*)
+		echo "Wrong choice";;
+esac
+----------------------------------------------------------------------
+output:
+arka@arka:~/shell_scripts$ bash calculator.sh
+Enter the 1st number
+4
+Enter the second number
+7
+choose what operation you wnat to perform
+1. addition
+2. substraction
+3. multiplication
+4. divition
+1
+The value of 4 + 7 = 11
+arka@arka:~/shell_scripts$ bash calculator.sh
+Enter the 1st number
+4  
+Enter the second number
+7
+choose what operation you wnat to perform
+1. addition
+2. substraction
+3. multiplication
+4. divition
+4
+The value of 4 / 7 = .57
+arka@arka:~/shell_scripts$ bash calculator.sh
+Enter the 1st number
+4
+Enter the second number
+7
+choose what operation you wnat to perform
+1. addition
+2. substraction
+3. multiplication
+4. divition
+2
+The value of 4 - 7 = -3
+arka@arka:~/shell_scripts$ bash calculator.sh
+Enter the 1st number
+4 
+Enter the second number
+7
+choose what operation you wnat to perform
+1. addition
+2. substraction
+3. multiplication
+4. divition
+3
+The value of 4 x 7 = 28
+arka@arka:~/shell_scripts$ bash calculator.sh
+Enter the 1st number
+4
+Enter the second number
+7
+choose what operation you wnat to perform
+1. addition
+2. substraction
+3. multiplication
+4. divition
+6
+Wrong choice
+
+
+
+--------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
+
+
+
+#To find the gcd and lcm using functions
+
+echo -n "a="
+read a
+echo -n "b="
+read b
+
+gcd()
+{
+	if [ $1 -eq 0 ]
+	then
+		echo 0	
+	else
+		if [ `expr $2 % $1` -eq 0 -a `expr $3 % $1` -eq 0 ]
+		then
+			echo $1
+		else
+			echo $(gcd `expr $1 - 1` $a $b)
+		fi
+	fi
+}
+lcm()
+{
+	hcf=$(gcd $1 $1 $2)
+	pro=`expr $1 \* $2`
+	l=`expr $pro / $hcf`
+	echo $l
+}
+
+if [ $a -lt $b ]
+then
+	echo "GCD = $(gcd $a $a $b)"
+	echo "LCM = $(lcm $a $b)"
+else
+	echo "GCD = $(gcd $b $b $a)"
+	echo "LCM = $(lcm $b $a)"
+fi
+----------------------------------------------------------------------
+output:
+arka@arka:~/shell_scripts$ bash fn_GcdLcm.sh
+a=4   
+b=6
+GCD = 2
+LCM = 12
+
+
+
+--------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
 
 
