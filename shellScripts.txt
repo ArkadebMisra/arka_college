@@ -1,0 +1,115 @@
+#Sum of n natural numbers
+
+echo -n "Enter n = "
+read n
+c=0
+s=0
+while [ $c -le $n ]
+do
+	s=`expr $s + $c`
+	c=`expr $c + 1`
+done
+echo "Sum = $s"
+----------------------------------------------------------------------
+output:
+arka@arka:~/shell_scripts$ bash sumN.sh
+Enter n = 5
+Sum = 15
+--------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
+
+
+#Sum of series S = 1 + (1 + 2) + ... + (1 + 2 + 3 + ... + n)
+
+echo -n "Enter n = "
+read n
+s=0
+i=1
+while [ $i -le $n ]
+do
+	j=1
+	while [ $j -le $i ]
+	do
+		s=`expr $s + $j`
+		j=`expr $j + 1`
+	done
+	i=`expr $i + 1`
+done
+echo "Sum = $s" 
+----------------------------------------------------------------------
+output:
+arka@arka:~/shell_scripts$ bash series.sh
+Enter n = 5
+Sum = 35
+
+--------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
+
+
+#To check whether a number is prime or not
+
+echo -n "Enter the no. "
+read n
+
+f=0
+i=1
+while [ $i -le $n ]
+do
+	if [ `expr $n % $i` -eq 0 ]
+	then
+		f=`expr $f + 1`
+	fi
+	i=`expr $i + 1`
+done
+if [ $f -eq 2 ]
+then
+	echo "$n is a prime number"
+else
+	echo "$n is not a prime number"
+fi
+----------------------------------------------------------------------
+output:
+arka@arka:~/shell_scripts$ bash prime.sh
+Enter the no. 7
+7 is a prime number
+arka@arka:~/shell_scripts$ bash prime.sh
+Enter the no. 8
+8 is not a prime number
+
+
+--------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
+
+
+#To check whether a number is prime or not
+
+echo -n "Enter the no. "
+read n
+
+f=0
+i=1
+while [ $i -le $n ]
+do
+	if [ `expr $n % $i` -eq 0 ]
+	then
+		f=`expr $f + 1`
+	fi
+	i=`expr $i + 1`
+done
+if [ $f -eq 2 ]
+then
+	echo "$n is a prime number"
+else
+	echo "$n is not a prime number"
+fi
+----------------------------------------------------------------------
+output:
+arka@arka:~/shell_scripts$ bash prime.sh
+Enter the no. 7
+7 is a prime number
+arka@arka:~/shell_scripts$ bash prime.sh
+Enter the no. 8
+8 is not a prime number
+
+
+--------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
+
+
+
