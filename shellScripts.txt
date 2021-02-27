@@ -355,3 +355,175 @@ LCM = 12
 --------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
 
 
+#WAP to input n number of integers and find the maximum and minimum number
+
+i=0
+echo "Enter the number of elements"
+read n
+echo "Enter the elements"
+while [ $i -lt $n ]
+do
+	read -p "a[$i]=" a[$i]
+	i=`expr $i + 1`
+done
+echo "The elements of the array: ${a[@]}"
+i=0
+max=${a[0]}
+min=${a[0]}
+for x in "${a[@]}"
+do
+	if [ $max -lt $x ]
+	then
+		max=$x
+	fi
+	if [ $min -gt $x ]
+	then
+		min=$x
+	fi
+done
+echo "The maximum number $max"
+echo "The minimum number $min"
+----------------------------------------------------------------------
+output:
+arka@arka:~/shell_scripts$ bash arrMaxMin.sh
+Enter the number of elements
+5
+Enter the elements
+a[0]=2
+a[1]=4
+a[2]=1
+a[3]=7
+a[4]=5
+The elements of the array: 2 4 1 7 5
+The maximum number 7
+The minimum number 1
+
+
+
+--------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
+
+#Binary Search
+
+
+
+#To perform bubble sort in an array
+
+read -p "Enter the no. of elements " n
+echo "Enter the array elements:"
+i=0
+while [ $i -lt $n ]
+do
+	read -p "a[$i]=" a[$i]
+	i=`expr $i + 1`
+done
+
+sel()
+{
+	local -n b="$2"
+	i=0
+	while [ $i -lt `expr $1 - 1` ]
+	do
+		j=`expr $i + 1`
+		min=$i
+		while [ $j -lt $1 ]
+		do
+			if [ ${b[$min]} -gt ${b[$j]} ]
+			then
+				min=$j
+			fi
+			j=`expr $j + 1`
+		done
+		t=${b[$min]}
+		b[$min]=${b[$i]}
+		b[$i]=$t
+		i=`expr $i + 1`
+	done
+}
+
+sel $n a
+echo "The sorted array ${a[@]}"
+
+echo -n "Enter no. to search - "
+read x
+
+l=0
+h=`expr $n - 1`
+k=1
+
+while [ $l -le $h ]
+do
+	mid=`expr $l + $h`
+	mid=`expr $mid / 2`
+  	if [ ${a[$mid]} -eq $x ]
+   	then
+        	echo "$x found at position `expr $mid + 1`"
+		k=0
+		break
+	elif [ ${a[$mid]} -lt $x ]
+	then
+        	l=`expr $mid + 1`
+	else
+        	h=`expr $mid - 1`
+	fi
+done
+
+----------------------------------------------------------------------
+output:
+arka@arka:~/shell_scripts$ bash binarySearch.sh
+Enter the no. of elements 5
+Enter the array elements:
+a[0]=4
+a[1]=2
+a[2]=5
+a[3]=8
+a[4]=1
+The sorted array 1 2 4 5 8
+Enter no. to search - 4
+4 found at position 3
+
+--------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
+
+
+#To perform bubble sort in an array
+
+read -p "Enter the no. of elements " n
+echo "Enter the array elements:"
+i=0
+while [ $i -lt $n ]
+do
+	read -p "a[$i]=" a[$i]
+	i=`expr $i + 1`
+done
+i=0
+while [ $i -lt `expr $n - 1` ]
+do
+	j=0
+	f=`expr $n - $i`
+	while [ $j -lt `expr $f - 1` ]
+	do
+		g=`expr $j + 1`
+		if [ ${a[$j]} -gt ${a[$g]} ]
+		then
+			t=${a[$j]}
+			a[$j]=${a[$g]}
+			a[$g]=$t
+		fi
+		j=`expr $j + 1`
+	done
+	i=`expr $i + 1`
+done
+echo "The sorted array ${a[@]}" 
+----------------------------------------------------------------------
+output:
+arka@arka:~/shell_scripts$ bash bubSort.sh
+Enter the no. of elements 5
+Enter the array elements:
+a[0]=2
+a[1]=6
+a[2]=1
+a[3]=9
+a[4]=4
+The sorted array 1 2 4 6 9
+
+
+--------------------------------------------------------------|||||||||||||||||||||||||||||||||||||---------------------------------------------------------
